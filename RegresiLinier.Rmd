@@ -31,11 +31,31 @@ Regresi linier Merupakan sebuah hitungan statistik untuk menentukan pengaruh ant
 # Tahapan Algoritma
 
 # Eksperimen Algoritma 
-## Red Wine Quality
+Asumsikan Anda adalah seorang peneliti sosial yang tertarik pada hubungan antara pendapatan dan kebahagiaan. Anda mensurvei 500 orang yang pendapatannya berkisar dari $15k hingga $75k dan meminta mereka untuk mengurutkan kebahagiaan mereka dalam skala dari 1 hingga 10. Variabel independen (pendapatan) dan variabel dependen (kebahagiaan) keduanya bersifat kuantitatif, sehingga Anda dapat melakukan regresi analisis untuk melihat apakah ada hubungan linear antara mereka.
 ```{r}
-wine <- read.csv("D:/R Stuff/Algoritma-linear-regression/winequality-red (2).csv", sep = ",")
-str(wine)
+ library(DT)
+ data("food", package="PoEdata")
+ datatable(food)
+ plot(food$income, food$food_exp, ylim=c(0, max(food$food_exp)), xlim =c(0, max(food$income)), xlab ="weekly income in $100", ylab="weekly food expenditure in $", type = "p")
+
+mod1 <- lm(food_exp ~ income, data = food)
+smod1<- summary(mod1)
+smod1
+
+b1 <- coef(mod1)[[1]]
+b2 <- coef(mod1)[[2]]
+b1
+
+b2
+
+plot(food$income, food$food_exp, xlab="weekly food expenditure in $", type = "p")
+abline(b1,b2)
+
+mod1$coefficients
+
 ```
+
+
 
 
 
