@@ -28,13 +28,17 @@ Uji statistik yang diterapkan pada kumpulan data untuk mendefinisikan dan menguk
 
 Regresi linier Merupakan sebuah hitungan statistik untuk menentukan pengaruh antara variabel satu dan yang lainnya (P. Katemba dan R.K Dioh 2017)
 
-# Tahapan Algoritma
+**Kesimpulan**
+Maka, dapat disimpulkan bahwa pengertian regresi liner adalah sebuah perhitungan uji statistik yang diterapkan pada sekumpulan data untuk menentukan pengaruh antara variable satu dengan yang lainnya
 
+# Tahapan Algoritma
+**Siapkan Dataset**
+**Tentukan Atribut dan Label**
+**Tentukan b0 dan b1**
+**Buat model regresi**
 
 # Eksperimen Algoritma 
-Seorang peneliti sosial yang tertarik pada hubungan antara pengeluaran dan pengeluaran unruk makan. Variabel independen (pendapatan) dan variabel dependen (pengeluaran untuk makan) keduanya bersifat kuantitatif, sehingga  dapat dilakukan analisis  regresi untuk melihat apakah ada hubungan linear antara mereka.
-
-lalu masukan dataset
+**1. Siapkan Dataset** 
 ```{r}
  library(PoEdata) # load the library PoEdata
 library(DT) # use for datatable function
