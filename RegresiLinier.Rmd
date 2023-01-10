@@ -33,28 +33,23 @@ Maka, dapat disimpulkan bahwa pengertian regresi liner adalah sebuah perhitungan
 
 # Tahapan Algoritma
 **Siapkan Dataset**
-**Tentukan Atribut dan Label**
 **Tentukan b0 dan b1**
 **Buat model regresi**
 
-# Eksperimen Algoritma 
+
 **1. Siapkan Dataset** 
 ```{r}
- library(PoEdata) # load the library PoEdata
-library(DT) # use for datatable function
- data("food", package="PoEdata")
- datatable(food)
- 
-
+ library(readxl)
+Salary_Data <- read_excel("Salary_Data.xls")
+View(Salary_Data)
 ```
 ```{r}
-plot(food$income, food$food_exp,
-     ylim=c(0, max(food$food_exp)),
-     xlim=c(0, max(food$income)),
-     xlab="weekly income in $100",
-     ylab="weekly food expenditure in $", type = "p")
+plot(Salary_Data$YearsExperience, Salary_Data$Salary,
+     ylim=c(0, max(Salary_Data$Salary)),
+     xlim=c(0, max(Salary_Data$YearsExperience)),
+     xlab="Pengalaman kerja (tahun)",
+     ylab="Gaji/Upah", type = "p")
 ```
-
 
 **Estimasi Linier Regresi** 
 
@@ -62,8 +57,8 @@ Y = b1 + b2 * X + e
 foodexp = b1 + b2 * income + e
 
 ```{r}
-mod1 <- lm(food_exp ~income, data = food) # linear model 
-smod1<- summary(mod1) # get summary
+mod1 <- lm(food_exp ~income, data = food) #model linier nya 
+smod1<- summary(mod1) #summary
 smod1
 
 
