@@ -1,14 +1,11 @@
 ---
-title: "Algoritma Linear Regression dengan R"
-date: "`r Sys.Date()`"
+title: Analisis Regresi Linier dengan R
 author: Aulia Hasna-Institut Teknologi Statistika dan Bisnis Muhammadiyah
+date: "`r Sys.Date()`"
 output:
-  rmdformats::downcute:
-    self_contained: true
-    thumbnails: true
-    lightbox: true
-    gallery: false
-    highlight: tango
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 bibliography: references.bib
 ---
 
@@ -22,8 +19,7 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Algoritma Regresi Linier dengan R
-## Pengertian 
+# Pengertian
 Uji statistik yang diterapkan pada kumpulan data untuk mendefinisikan dan mengukur hubungan antara variabel yang dipertimbangkan (chang 2004) 
 
 Regresi linier Merupakan sebuah hitungan statistik untuk menentukan pengaruh antara variabel satu dan yang lainnya (P. Katemba dan R.K Dioh 2017)
@@ -32,17 +28,24 @@ Regresi linier Merupakan sebuah hitungan statistik untuk menentukan pengaruh ant
 Maka, dapat disimpulkan bahwa pengertian regresi liner adalah sebuah perhitungan uji statistik yang diterapkan pada sekumpulan data untuk menentukan pengaruh antara variable satu dengan yang lainnya
 
 # Tahapan Algoritma
+
 **Siapkan Dataset**
-**Tentukan b0 dan b1**
-**Buat model regresi**
 
+Disini kita akan menggunakan dataset "Salary_Data" yang memiliki dua variabel yaitu variabel "Salary" yang mana menunjukkan gaji, dan "YearsExperience" yang mana menunjukkan pengalaman dalam satuan tahun, tujuan dari dataset ini adalah untuk mengetahui pengaruh antara pengalaman pekerjaan dan gaji/upah yang didapatkan.
 
-**1. Siapkan Dataset** 
+Memanggil data dengan menuliskan alamat file dari data tersebut.
 ```{r}
- library(readxl)
-Salary_Data <- read_excel("Salary_Data.xls")
-View(Salary_Data)
+library(readxl)
+Salary_Data <- read_excel("D:/R stuff/Algoritma-linear-regression/Salary_Data.xls")
+
 ```
+
+Memanggil data dengan menampilkan data tersebut.
+```{r}
+data.table::as.data.table(Salary_Data)
+```
+Agar lebih mudah untuk dilihat, buatlah  diagram scatter plot untuk mengetahui kolerasi antara kedua variabel tersebut.
+
 ```{r}
 plot(Salary_Data$YearsExperience, Salary_Data$Salary,
      ylim=c(0, max(Salary_Data$Salary)),
@@ -51,77 +54,99 @@ plot(Salary_Data$YearsExperience, Salary_Data$Salary,
      ylab="Gaji/Upah", type = "p")
 ```
 
-**Estimasi Linier Regresi** 
 
-Y = b1 + b2 * X + e
-foodexp = b1 + b2 * income + e
+dilihat dari scatter plot diatas, dapat diketahui bahwa kedua variabel tersebut memiliki hubungan (kolerasi) positif, maka dengan begitu dapat dilanjutkan dengan regresi. Salah satu syarat untuk melanjutkan ke tahap regresi adalah kedua variabel memiliki kolerasi baik positif maupun negatif.
+
+
+**Model Linier Regresi** 
+
+Rumus permodelan regresi linier sederhana dapat dilihat pada rumus dibawah ini :
+$$
+Y=\beta 1+\beta 2 * X+\varepsilon
+$$
+Masukkan data kedalam persamaan, dengan "Salary" sebagai Y atau variabel dependent, dan "YearsExperience" sebagai X atau variabel independent.
+
+\begin{equation}
+\text { Salary }=\beta 1+\beta 2 * \text { YearsExperience }+\varepsilon
+\end{equation}
+
+Menentukan nilai b1 dan b2 
 
 ```{r}
-mod1 <- lm(food_exp ~income, data = food) #model linier nya 
+mod1 <- lm(Salary ~ YearsExperience , data = Salary_Data) #model linier nya 
 smod1<- summary(mod1) #summary
 smod1
 
 
 ```
 ```{r}
-b1 <- coef(mod1)[[1]] #the estimated value of b1
-b2 <- coef(mod1)[[2]]#the estimated value of b2
+b1 <- coef(mod1)[[1]] #nilai dari b1 nya
+b2 <- coef(mod1)[[2]]#nilai dari  b2 nya
+```
+
+
+nilai b1
+
+```{r}
 b1
 ```
+
+nilai b2
+
 ```{r}
 b2
 ```
+Jadi, didapatkan model regresi linier sederhana sebagai berikut,
 
-yhat = b1 + b2 * X
-foodexp = 83.416 + 10.20964 * income
+\begin{equation}
+\hat{Y}=\beta 1+\beta 2 * X
+\end{equation}
+
+dimasukkan kedalam persamaan maka, 
+
+\begin{equation}
+\text { Salary }=25792.2+9449.962 * \text { YearsExperience }
+\end{equation}
+
+Agar lebih mudah untuk dilihat maka buatlah diagram scatter plot, untuk mengetahui posisi model dan data sebenarnya
 
 ```{r}
-plot(food$income, food$food_exp,
-xlab="weekly income in $100",
-ylab="weekly food expenditure in $", type="p")
+plot(Salary_Data$YearsExperience, Salary_Data$Salary,
+ xlab="Pengalaman kerja (tahun)",
+     ylab="Gaji/Upah", type = "p")
 abline(b1,b2)
 ```
 
-```{r}
-mod1$coefficients
-```
-```{r}
-smod1$coefficients
-```
 **Prediksi Menggunakan SLR Model**
 
-foodexp = 83.416 + 10.20964 * 20
-        = $287.608861
+Kita ingin mengetahui berapa kira-kira gaji seseorang yang memiliki pengalaman kerja selama 12 tahun
+
+\begin{equation}
+\begin{aligned}
+\text { Salary } & =25792.2+9449.962 * 12 \\
+& =$139.191,744
+\end{aligned}
+\end{equation}
+
+Masukkan perkiraan lama pengalaman kerja (tahun)
+
 ```{r}
-mod1 <- lm(food_exp~income, data=food)
-newx <- data.frame(income = c(20, 25, 27))
+mod1 <- lm(Salary~YearsExperience, data=Salary_Data)
+newx <- data.frame(YearsExperience = c(11, 12, 9))
 yhat <- predict(mod1, newx)
-yhat #print the result
+yhat #memunculkan hasil
 ```
-**Assesment Koefisien Regresi**
-```{r}
-N <- nrow(food) # returns the numbr of observations in the dataset
-C <- 50 #desired number of subsamples
-S <- 38 # desired sample size
 
 
-sumb2 <- 0
-for (i in 1:C) {set.seed(3*i)
-  subsample <- food[sample(1:N, size=S, replace=TRUE),]
-  mod2 <- lm(food_exp~income, data=subsample)
-  # sum b2 for all subsamples :
-  sumb2 <- sumb2 + coef(mod2)[[2]]
-}
-print(sumb2/C, digits = 3)
-```
-hasilnya, b2 = 9.88 adalah rata-rata dari 50 perkiraan b2
 
-**Estimasi var dan cov**
-```{r}
-
-```
 
 
 # Referensi
 https://rpubs.com/dsciencelabs/econometrics2
+
+K. Kumari, and S. Yadav, “Linear Regression Analysis Study”, vol. 4, no.1, pp. 33-36, 2018, [Online].Available:
+https://www.j-pcs.org/article.asp?issn=2395-5414;year=2018;volume=4;issue=1;spage=33;epage=36;aulast=Kumari
+P. Katemba and R. K. Djoh, “Prediksi TingkatProduksi Kopi Menggunakan Reg resi Linear,” vol. 3, no. 1, pp. 42–51, 2017, [Online].Available:http://jurnal.pnk.ac.id/index.php/flash/article/view/136
+https://www.kaggle.com/code/vivinbarath/simple-linear-regression-for-salary-data/notebook#y-=-25202.8-+-9731.2x
+
 
