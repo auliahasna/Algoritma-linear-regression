@@ -47,9 +47,14 @@ data.table::as.data.table(Salary_Data)
 Agar lebih mudah untuk dilihat, buatlah  diagram scatter plot untuk mengetahui kolerasi antara kedua variabel tersebut.
 
 ```{r}
-ggplot2::aes(Salary_data, (x = x_YearsExperience, y = y_Salary)) + geom_col()
+library(ggplot2)
 ```
 
+```{r}
+ggplot(Salary_Data, 
+      aes(y = Salary, x = YearsExperience)) 
+  
+```
 
 dilihat dari scatter plot diatas, dapat diketahui bahwa kedua variabel tersebut memiliki hubungan (kolerasi) positif, maka dengan begitu dapat dilanjutkan dengan regresi. Salah satu syarat untuk melanjutkan ke tahap regresi adalah kedua variabel memiliki kolerasi baik positif maupun negatif.
 
