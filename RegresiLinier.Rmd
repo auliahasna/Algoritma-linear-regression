@@ -47,11 +47,7 @@ data.table::as.data.table(Salary_Data)
 Agar lebih mudah untuk dilihat, buatlah  diagram scatter plot untuk mengetahui kolerasi antara kedua variabel tersebut.
 
 ```{r}
-plot(Salary_Data$YearsExperience, Salary_Data$Salary,
-     ylim=c(0, max(Salary_Data$Salary)),
-     xlim=c(0, max(Salary_Data$YearsExperience)),
-     xlab="Pengalaman kerja (tahun)",
-     ylab="Gaji/Upah", type = "p")
+ggplot2::aes(Salary_data, (x = x_YearsExperience, y = y_Salary)) + geom_col()
 ```
 
 
@@ -111,10 +107,8 @@ dimasukkan kedalam persamaan maka,
 Agar lebih mudah untuk dilihat maka buatlah diagram scatter plot, untuk mengetahui posisi model dan data sebenarnya
 
 ```{r}
-plot(Salary_Data$YearsExperience, Salary_Data$Salary,
- xlab="Pengalaman kerja (tahun)",
-     ylab="Gaji/Upah", type = "p")
-abline(b1,b2)
+ggplot2::aes(x = YearsExperience, y = Salary) +
+       geom_line(color = "red")
 ```
 
 **Prediksi Menggunakan Model**
@@ -142,11 +136,11 @@ yhat #memunculkan hasil
 
 
 # Referensi
-https://rpubs.com/dsciencelabs/econometrics2
-
-K. Kumari, and S. Yadav, “Linear Regression Analysis Study”, vol. 4, no.1, pp. 33-36, 2018, [Online].Available:
+1. https://rpubs.com/dsciencelabs/econometrics2
+2. K. Kumari, and S. Yadav, “Linear Regression Analysis Study”, vol. 4, no.1, pp. 33-36, 2018, [Online].Available:
 https://www.j-pcs.org/article.asp?issn=2395-5414;year=2018;volume=4;issue=1;spage=33;epage=36;aulast=Kumari
-P. Katemba and R. K. Djoh, “Prediksi TingkatProduksi Kopi Menggunakan Reg resi Linear,” vol. 3, no. 1, pp. 42–51, 2017, [Online].Available:http://jurnal.pnk.ac.id/index.php/flash/article/view/136
-https://www.kaggle.com/code/vivinbarath/simple-linear-regression-for-salary-data/notebook#y-=-25202.8-+-9731.2x
+3. P. Katemba and R. K. Djoh, “Prediksi TingkatProduksi Kopi Menggunakan Reg resi Linear,” vol. 3, no. 1, pp. 42–51, 2017, [Online].Available:http://jurnal.pnk.ac.id/index.php/flash/article/view/136
+4. https://www.kaggle.com/code/vivinbarath/simple-linear-regression-for-salary-data/notebook#y-=-25202.8-+-9731.2x
+5. https://github.com/auliahasna/Algoritma-linear-regression
 
 
