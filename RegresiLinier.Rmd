@@ -58,7 +58,7 @@ plot(Salary_Data$YearsExperience, Salary_Data$Salary,
 dilihat dari scatter plot diatas, dapat diketahui bahwa kedua variabel tersebut memiliki hubungan (kolerasi) positif, maka dengan begitu dapat dilanjutkan dengan regresi. Salah satu syarat untuk melanjutkan ke tahap regresi adalah kedua variabel memiliki kolerasi baik positif maupun negatif.
 
 
-**Model Linier Regresi** 
+**Model Regresi Linier** 
 
 Rumus permodelan regresi linier sederhana dapat dilihat pada rumus dibawah ini :
 $$
@@ -117,7 +117,7 @@ plot(Salary_Data$YearsExperience, Salary_Data$Salary,
 abline(b1,b2)
 ```
 
-**Prediksi Menggunakan SLR Model**
+**Prediksi Menggunakan Model**
 
 Kita ingin mengetahui berapa kira-kira gaji seseorang yang memiliki pengalaman kerja selama 12 tahun
 
