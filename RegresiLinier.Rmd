@@ -47,14 +47,11 @@ data.table::as.data.table(Salary_Data)
 Agar lebih mudah untuk dilihat, buatlah  diagram scatter plot untuk mengetahui kolerasi antara kedua variabel tersebut.
 
 ```{r}
+library(ggplot2)
+```
 
-plot(Salary_Data$YearsExperience, Salary_Data$Salary,
-     ylim=c(0, max(Salary_Data$Salary)),
-     xlim=c(0, max(Salary_Data$YearsExperience)),
-     xlab="Pengalaman kerja (tahun)",
-     ylab="Gaji/Upah", type = "p")
-
-
+```{r}
+ggplot(Salary_Data, aes(x = YearsExperience, y = Salary)) + geom_point() + labs(x = 'Pengalaman kerja (tahun)', y = 'Gaji/Upah', title = "Hubungan antara Gaji dan Pengalaman kerja")
 ```
 
 
@@ -62,7 +59,7 @@ plot(Salary_Data$YearsExperience, Salary_Data$Salary,
 dilihat dari scatter plot diatas, dapat diketahui bahwa kedua variabel tersebut memiliki hubungan (kolerasi) positif, maka dengan begitu dapat dilanjutkan dengan regresi. Salah satu syarat untuk melanjutkan ke tahap regresi adalah kedua variabel memiliki kolerasi baik positif maupun negatif.
 
 
-**Model Regresi Linier** 
+**Persamaan Regresi Linier Sederhana**
 
 Rumus permodelan regresi linier sederhana dapat dilihat pada rumus dibawah ini :
 $$
@@ -115,10 +112,7 @@ dimasukkan kedalam persamaan maka,
 Agar lebih mudah untuk dilihat maka buatlah diagram scatter plot, untuk mengetahui posisi model dan data sebenarnya
 
 ```{r}
-plot(Salary_Data$YearsExperience, Salary_Data$Salary,
-xlab="Pengalaman kerja (tahun)",
-ylab="Gaji/Upah", type="p")
-abline(b1,b2)
+ggplot(Salary_Data, aes(x = YearsExperience, y = Salary)) + geom_point() + labs(x = 'Pengalaman kerja (tahun)', y = 'Gaji/Upah', title = "Hubungan antara Gaji dan Pengalaman kerja") + geom_smooth(method = "lm", se = FALSE)
 ```
 
 **Prediksi Menggunakan Model**
@@ -141,6 +135,12 @@ yhat <- predict(mod1, newx)
 yhat #memunculkan hasil
 ```
 
+Hasil prediksi dapat dilihat pada output diatas, hasil prediksi upah/ gaji dengan pengalaman kerja (tahun) (11, 12, 9) adalah (1. 129741.8, 2. 139191.7, 3. 110841.9)
+
+#Regresi Linier Berganda
+Regresi linear berganda merupakan model regresi yang melibatkan lebih dari satu variabel independen. Analisis regresi linear berganda dilakukan untuk mengetahui arah dan seberapa besar pengaruh variabel independen terhadap variabel dependen (Ghozali, 2018)
+
+Jadi, pada dasarnya regresi linier berganda adalah uji statistik yang digunakan untuk memprediksi suatu nilai yang didapatkan dari model, yang memiliki lebih dari satu variabel independent dan satu variabel dependent.
 
 
 
@@ -151,5 +151,6 @@ yhat #memunculkan hasil
 3. P. Katemba and R. K. Djoh, “Prediksi TingkatProduksi Kopi Menggunakan Reg resi Linear,” vol. 3, no. 1, pp. 42–51, 2017, [Online].Available:http://jurnal.pnk.ac.id/index.php/flash/article/view/136
 4. https://www.kaggle.com/code/vivinbarath/simple-linear-regression-for-salary-data/notebook#y-=-25202.8-+-9731.2x
 5. https://github.com/auliahasna/Algoritma-linear-regression
+6. Ghozali, Imam. 2018. Aplikasi Analisis Multivariate dengan Program IBM SPSS 25. Badan Penerbit Universitas Diponegoro: Semarang.
 
 
