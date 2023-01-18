@@ -20,12 +20,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Pengertian
-Uji statistik yang diterapkan pada kumpulan data untuk mendefinisikan dan mengukur hubungan antara variabel yang dipertimbangkan (chang 2004) 
+Uji statistik yang diterapkan pada kumpulan data untuk mendefinisikan dan mengukur hubungan antara variabel yang dipertimbangkan (chang 2004).
 
-Regresi linier Merupakan sebuah hitungan statistik untuk menentukan pengaruh antara variabel satu dan yang lainnya (P. Katemba dan R.K Dioh 2017)
+Regresi linier Merupakan sebuah hitungan statistik untuk menentukan pengaruh antara variabel satu dan yang lainnya (P. Katemba dan R.K Dioh 2017).
 
 **Kesimpulan**
-Maka, dapat disimpulkan bahwa pengertian regresi liner adalah sebuah perhitungan uji statistik yang diterapkan pada sekumpulan data untuk menentukan pengaruh antara variable satu dengan yang lainnya
+Maka, dapat disimpulkan bahwa pengertian regresi liner adalah sebuah perhitungan uji statistik yang diterapkan pada sekumpulan data untuk menentukan pengaruh antara variable satu dengan yang lainnya.
 
 # Tahapan Algoritma
 
@@ -81,13 +81,13 @@ b2 <- coef(mod1)[[2]]#nilai dari  b2 nya
 ```
 
 
-nilai b1
+**nilai b1**
 
 ```{r}
 b1
 ```
 
-nilai b2
+**nilai b2**
 
 ```{r}
 b2
@@ -107,7 +107,7 @@ dimasukkan kedalam persamaan maka,
 Agar lebih mudah untuk dilihat maka buatlah diagram scatter plot, untuk mengetahui posisi model dan data sebenarnya
 
 ```{r}
-ggplot(Salary_Data, aes(x = YearsExperience, y = Salary)) + geom_point() + labs(x = 'Pengalaman kerja (tahun)', y = 'Gaji/Upah', title = "Hubungan antara Gaji dan Pengalaman kerja") + geom_smooth(method = "lm", se = FALSE)
+ggplot(Salary_Data, aes(x = YearsExperience, y = Salary)) + geom_point() + labs(x = 'Pengalaman kerja (tahun)', y = 'Gaji/Upah', title = "Regresi antara Gaji dan Pengalaman kerja") + geom_smooth(method = "lm", se = FALSE)
 ```
 
 # Eksperimen Prediksi Menggunakan Model
@@ -121,7 +121,7 @@ Kita ingin mengetahui berapa kira-kira gaji seseorang yang memiliki pengalaman k
 \end{aligned}
 \end{equation}
 
-Masukkan perkiraan lama pengalaman kerja (tahun)
+Masukkan perkiraan lama pengalaman kerja (tahun) (11,12,9)
 
 ```{r}
 mod1 <- lm(Salary~YearsExperience, data=Salary_Data)
@@ -163,18 +163,19 @@ library(readr)
 marketing <- read.csv("D:/R stuff/Algoritma-linear-regression/Marketing_Data.csv") 
 ```
 
+Kemudian tampilkan data dalam bentuk tabel sebagai berikut.
 ```{r}
 data.table::as.data.table(marketing)
 ```
-Untuk mengetahui hubungan antar variabel maka dibuatlah scatterplot agar lebh mudah untuk dilihat.
+Untuk mengetahui hubungan antar variabel maka dibuatlah scatterplot agar lebih mudah untuk dilihat.
 ```{r}
 plot(marketing, col="violet")
 ```
 
 ```{r}
 library(GGally)
-ggpairs(marketing,lower = list(continuous = wrap('points', colour = "yellow")),
-  diag = list(continuous = wrap("barDiag", colour = "blue"))
+ggpairs(marketing,lower = list(continuous = wrap('points', colour = "cyan")),
+  diag = list(continuous = wrap("barDiag", colour = "black"))
     )
 ```
 
@@ -200,10 +201,31 @@ print(dim(test))
 Kemudian, terdapat 43 data testing dalam 4 kolom tabel.
 
 # Membuat Model Regresi Berganda
+Membuat model regresi dengan code sebagai berikut.
 ```{r}
-model_mlr <- lm(sales ~ ., data = marketing)
-summary(model_mlr)
+modelsales <- lm(sales ~ youtube + facebook + newspaper, data = marketing)
+summary(modelsales)
 ```
+
+Dengan output diatas didapatkan persamaan model regresi linear berganda sebagai berikut,
+
+
+
+# Prediksi Data menggunakan Regresi Linier Berganda
+
+Kita masukkan permisalan jumlah dari setiap media untuk memprediksi sales.
+```{r}
+youtube <- 100
+facebook <- 40
+newspaper <- 70
+```
+
+Kemudian masukkan kedalam model.
+```{r}
+sales = 3.505871 + 0.045235*youtube + 0.188398*facebook + 0.004279*newspaper
+print(sales)
+```
+Didapatkan nilai prediksi sejumlah 15.864. Maka dapat disimpulkan bahwa jika jumlah nilai dari media youtube = 100, facebook = 40, newspaper = 70, didapatkan hasil prediksi sales sebanyak = 15.86482.
 
 # Referensi
 1. https://github.com/auliahasna/Algoritma-linear-regression
