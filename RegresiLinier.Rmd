@@ -58,14 +58,16 @@ dilihat dari scatter plot diatas, dapat diketahui bahwa kedua variabel tersebut 
 
 **Persamaan Regresi Linier Sederhana**
 
-Rumus permodelan regresi linier sederhana dapat dilihat pada rumus dibawah ini :
-$$
-Y=\beta 1+\beta 2 * X+\varepsilon
-$$
+Rumus permodelan regresi linier sederhana dapat dilihat pada rumus dibawah ini,
+
+\begin{equation}
+Y=\beta_1+\beta_2 * \mathrm{X}+\epsilon
+\end{equation}
+
 Masukkan data kedalam persamaan, dengan "Salary" sebagai Y atau variabel dependent, dan "YearsExperience" sebagai X atau variabel independent.
 
 \begin{equation}
-\text { Salary }=\beta 1+\beta 2 * \text { YearsExperience }+\varepsilon
+\text { Salary }=\beta_1+\beta_2 * \text { YearsExperience }+\epsilon
 \end{equation}
 
 Menentukan nilai b1 dan b2 
@@ -95,9 +97,8 @@ b2
 Jadi, didapatkan model regresi linier sederhana sebagai berikut,
 
 \begin{equation}
-\hat{Y}=\beta 1+\beta 2 * X
+\widehat{Y}=\beta_1+\beta_2 * X
 \end{equation}
-
 dimasukkan kedalam persamaan maka, 
 
 \begin{equation}
@@ -209,7 +210,9 @@ summary(modelsales)
 
 Dengan output diatas didapatkan persamaan model regresi linear berganda sebagai berikut,
 
-
+\begin{equation}
+\text { sales }=3.505+0.045 * \text { youtube }+0.188 * \text { facebook }+0.004 * \text { newspaper }
+\end{equation}
 
 # Prediksi Data menggunakan Regresi Linier Berganda
 
