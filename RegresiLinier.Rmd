@@ -37,7 +37,6 @@ Memanggil data dengan menuliskan alamat file dari data tersebut.
 ```{r}
 library(readxl)
 Salary_Data <- read_excel("D:/R stuff/Algoritma-linear-regression/Salary_Data.xls")
-
 ```
 
 Memanggil data dengan menampilkan data tersebut.
@@ -53,8 +52,6 @@ library(ggplot2)
 ```{r}
 ggplot(Salary_Data, aes(x = YearsExperience, y = Salary)) + geom_point() + labs(x = 'Pengalaman kerja (tahun)', y = 'Gaji/Upah', title = "Hubungan antara Gaji dan Pengalaman kerja")
 ```
-
-
 
 dilihat dari scatter plot diatas, dapat diketahui bahwa kedua variabel tersebut memiliki hubungan (kolerasi) positif, maka dengan begitu dapat dilanjutkan dengan regresi. Salah satu syarat untuk melanjutkan ke tahap regresi adalah kedua variabel memiliki kolerasi baik positif maupun negatif.
 
@@ -77,8 +74,6 @@ Menentukan nilai b1 dan b2
 mod1 <- lm(Salary ~ YearsExperience , data = Salary_Data) #model linier nya 
 smod1<- summary(mod1) #summary
 smod1
-
-
 ```
 ```{r}
 b1 <- coef(mod1)[[1]] #nilai dari b1 nya
@@ -115,7 +110,7 @@ Agar lebih mudah untuk dilihat maka buatlah diagram scatter plot, untuk mengetah
 ggplot(Salary_Data, aes(x = YearsExperience, y = Salary)) + geom_point() + labs(x = 'Pengalaman kerja (tahun)', y = 'Gaji/Upah', title = "Hubungan antara Gaji dan Pengalaman kerja") + geom_smooth(method = "lm", se = FALSE)
 ```
 
-**Prediksi Menggunakan Model**
+# Eksperimen Prediksi Menggunakan Model
 
 Kita ingin mengetahui berapa kira-kira gaji seseorang yang memiliki pengalaman kerja selama 12 tahun
 
@@ -135,22 +130,89 @@ yhat <- predict(mod1, newx)
 yhat #memunculkan hasil
 ```
 
-Hasil prediksi dapat dilihat pada output diatas, hasil prediksi upah/ gaji dengan pengalaman kerja (tahun) (11, 12, 9) adalah (1. 129741.8, 2. 139191.7, 3. 110841.9)
+Hasil prediksi dapat dilihat pada output diatas, hasil prediksi upah/ gaji dengan pengalaman kerja (tahun) (11, 12, 9) adalah (1. 129741.8, 2. 139191.7, 3. 110841.9).
 
-#Regresi Linier Berganda
-Regresi linear berganda merupakan model regresi yang melibatkan lebih dari satu variabel independen. Analisis regresi linear berganda dilakukan untuk mengetahui arah dan seberapa besar pengaruh variabel independen terhadap variabel dependen (Ghozali, 2018)
+# Regresi Linier Berganda
+Regresi linear berganda merupakan model regresi yang melibatkan lebih dari satu variabel independen. Analisis regresi linear berganda dilakukan untuk mengetahui arah dan seberapa besar pengaruh variabel independen terhadap variabel dependen. (Ghozali, 2018)
 
 Jadi, pada dasarnya regresi linier berganda adalah uji statistik yang digunakan untuk memprediksi suatu nilai yang didapatkan dari model, yang memiliki lebih dari satu variabel independent dan satu variabel dependent.
 
+# Persamaan Regresi Linier Berganda
 
+Persamaan regresi linier berganda adalah sebagai berikut,
+\begin{equation}
+Y=\alpha+\beta_1 X_1+\beta_2 X_2+\cdots+\beta_n X_n
+\end{equation}
 
+Disini kita akan menggunakan dataset "Marketing_data" untuk pengaplikasikan kepada regresi linier berganda.
+
+# Tahapan Algoritma
+
+**Pertama** siapkan library yang dibutuhkan,
+```{r}
+library(ggplot2)
+library(kableExtra)
+library(dplyr)
+library(caTools)
+library(ggplot2)
+```
+
+**Kemudian** memanggil dataset "Marketing_Data" untuk analisa regresi linier berganda, dan mengganti namanya menjadi "marketing".
+```{r}
+library(readr)
+marketing <- read.csv("D:/R stuff/Algoritma-linear-regression/Marketing_Data.csv") 
+```
+
+```{r}
+data.table::as.data.table(marketing)
+```
+Untuk mengetahui hubungan antar variabel maka dibuatlah scatterplot agar lebh mudah untuk dilihat.
+```{r}
+plot(marketing, col="violet")
+```
+
+```{r}
+library(GGally)
+ggpairs(marketing,lower = list(continuous = wrap('points', colour = "yellow")),
+  diag = list(continuous = wrap("barDiag", colour = "blue"))
+    )
+```
+
+dilihat dari scatterplot diatas dapat dilihat kolerasi positif antara 'sales' dan 'youtube', dan antara 'sales' dan 'facebook'.
+
+# Persiapan data
+Pada step ini kita akan memisahlan data marketing menjadi 2 yaitu data training dan data testing.
+```{r}
+set.seed(2)
+
+sample = sample.split(marketing$sales, SplitRatio = 0.75)
+
+train = subset(marketing, sample == TRUE)
+test = subset(marketing, sample == FALSE)
+
+print(dim(train))
+```
+Seperti yang dilihat diatas, terdapat 128 data training dalam 4 kolom tabel.
+
+```{r}
+print(dim(test))
+``` 
+Kemudian, terdapat 43 data testing dalam 4 kolom tabel.
+
+# Membuat Model Regresi Berganda
+```{r}
+model_mlr <- lm(sales ~ ., data = marketing)
+summary(model_mlr)
+```
 
 # Referensi
-1. https://rpubs.com/dsciencelabs/econometrics2
-2. K. Kumari, and S. Yadav, “Linear Regression Analysis Study”, vol. 4, no.1, pp. 33-36, 2018, [Online].Available:https://www.j-pcs.org/article.asp?issn=2395-5414;year=2018;volume=4;issue=1;spage=33;epage=36;aulast=Kumari
-3. P. Katemba and R. K. Djoh, “Prediksi TingkatProduksi Kopi Menggunakan Reg resi Linear,” vol. 3, no. 1, pp. 42–51, 2017, [Online].Available:http://jurnal.pnk.ac.id/index.php/flash/article/view/136
+1. https://github.com/auliahasna/Algoritma-linear-regression
+2. https://rpubs.com/dsciencelabs/econometrics2
+3. https://rpubs.com/Subhalaxmi/700597#:~:text=Multiple%20linear%20regression%20is%20the,can%20be%20continuous%20or%20categorical.
 4. https://www.kaggle.com/code/vivinbarath/simple-linear-regression-for-salary-data/notebook#y-=-25202.8-+-9731.2x
-5. https://github.com/auliahasna/Algoritma-linear-regression
-6. Ghozali, Imam. 2018. Aplikasi Analisis Multivariate dengan Program IBM SPSS 25. Badan Penerbit Universitas Diponegoro: Semarang.
+5. https://www.kaggle.com/datasets/fayejavad/marketing-linear-multiple-regression
+6. K. Kumari, and S. Yadav, “Linear Regression Analysis Study”, vol. 4, no.1, pp. 33-36, 2018, [Online].Available:https://www.j-pcs.org/article.asp?issn=2395-5414;year=2018;volume=4;issue=1;spage=33;epage=36;aulast=Kumari
+7. P. Katemba and R. K. Djoh, “Prediksi TingkatProduksi Kopi Menggunakan Reg resi Linear,” vol. 3, no. 1, pp. 42–51, 2017, [Online].Available:http://jurnal.pnk.ac.id/index.php/flash/article/view/136
+8. Ghozali, Imam. 2018. Aplikasi Analisis Multivariate dengan Program IBM SPSS 25. Badan Penerbit Universitas Diponegoro: Semarang.
 
 
